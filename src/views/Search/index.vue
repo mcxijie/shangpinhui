@@ -7,12 +7,56 @@ export default {
   components: {
     SearchSelector
   },
+  data() {
+    return {
+      searchParams: {
+        category1Id: "",
+        category2Id: "",
+        category3Id: "",
+        categoryName: "",
+        keyword: "",
+        order: "",
+        pageNo: 1,
+        pageSize: 3,
+        props: [],
+        trademark: ""
+      }
+    };
+  },
+
+  beforeMount() {
+    Object.assign(this.searchParams, this.$route.query, this.$route.params);
+  },
   mounted() {
-    this.$store.dispatch("getSearchList", {});
+    this.getData();
   },
   computed: {
     ...mapGetters(['goodsList'])
   },
+  methods: {
+    getData() {
+      this.$store.dispatch("getSearchList", this.searchParams);
+    },
+    removeCateGoryName() {
+      this.searchParams.categoryName = undefined;
+      this.searchParams.category1Id = undefined;
+      this.searchParams.category2Id = undefined;
+      this.searchParams.category3Id = undefined;
+      this.getData();
+      if (this.$route.params) {
+        this.$router.push({name: "search", params: this.$route.params})
+      }
+    }
+  },
+  watch: {
+    $route(newValue, oldValue) {
+      Object.assign(this.searchParams, this.$route.query, this.$route.params);
+      this.getData();
+      this.searchParams.category1Id = undefined;
+      this.searchParams.category2Id = undefined;
+      this.searchParams.category3Id = undefined;
+    }
+  }
 
 }
 </script>
@@ -30,10 +74,8 @@ export default {
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li v-if="searchParams.categoryName" class="with-x">{{ searchParams.categoryName }}<i
+                @click="removeCateGoryName">×</i></li>
           </ul>
         </div>
 
@@ -81,7 +123,9 @@ export default {
                   </div>
                   <div class="attr">
                     <a href="item.html" target="_blank"
-                       title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">{{ good.title }}</a>
+                       title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">{{
+                        good.title
+                      }}</a>
                   </div>
                   <div class="commit">
                     <i class="command">已有<span>2000</span>人评价</i>
