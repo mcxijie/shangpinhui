@@ -6,6 +6,14 @@ export default {
   computed: {
     ...mapGetters(["trademarkList", "attrsList"])
   },
+  methods: {
+    tradeMatHandler(trademark) {
+      this.$emit("trademarkInfo", trademark);
+    },
+    attrInfo(attr, attrValue) {
+      this.$emit("attrInfo", attr, attrValue);
+    }
+  }
 }
 </script>
 
@@ -15,7 +23,9 @@ export default {
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="(trademark,index) in trademarkList" :key="trademark.tmId">{{ trademark.tmName }}</li>
+          <li v-for="(trademark,index) in trademarkList" :key="trademark.tmId" @click="tradeMatHandler(trademark)">
+            {{ trademark.tmName }}
+          </li>
         </ul>
       </div>
       <div class="ext">
@@ -26,8 +36,8 @@ export default {
     <div v-for="(attr,index) in attrsList" :key="attr.attrId" class="type-wrap">
       <div class="fl key">{{ attr.attrName }}</div>
       <div class="fl value">
-        <ul v-for="(attrValue,index) in attr.attrValueList" :key="index" class="type-list">
-          <li>
+        <ul class="type-list">
+          <li v-for="(attrValue,index) in attr.attrValueList" :key="attrValue" @click="attrInfo(attr,attrValue)">
             <a>{{ attrValue }}</a>
           </li>
         </ul>

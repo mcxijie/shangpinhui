@@ -14,7 +14,12 @@ export default {
         this.$router.push(loction);
       }
     }
-  }
+  },
+  mounted() {
+    this.$bus.$on("clear", () => {
+      this.keyword = "";
+    });
+  },
 };
 </script>
 
