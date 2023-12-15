@@ -1,6 +1,5 @@
 <script>
 import {mapState} from "vuex";
-import Swiper from "swiper";
 
 export default {
   name: "",
@@ -11,25 +10,6 @@ export default {
     ...mapState({
       bannerList: state => state.home.bannerList
     })
-  },
-  watch: {
-    bannerList: {
-      handler(newValue, oldValue) {
-        this.$nextTick(() => {
-          var mySwiper = new Swiper(document.querySelector(".swiper-container"), {
-            loop: true,
-            pagination: {
-              el: '.swiper-pagination',
-              clickable: true,
-            },
-            navigation: {
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            }
-          })
-        })
-      }
-    }
   }
 }
 </script>
@@ -39,19 +19,7 @@ export default {
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div id="mySwiper" class="swiper-container">
-          <div class="swiper-wrapper">
-            <div v-for="(carousel,index) in bannerList" :key="carousel.id" class="swiper-slide">
-              <img :src="carousel.imgUrl"/>
-            </div>
-          </div>
-          <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
-
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
+        <Carousel :list="bannerList"></Carousel>
       </div>
       <div class="right">
         <div class="news">
