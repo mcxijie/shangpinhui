@@ -5,6 +5,11 @@ import {mapGetters} from "vuex";
 
 export default {
   name: 'Detail',
+  data() {
+    return {
+      skuNum: 1,
+    }
+  },
   components: {
     ImageList,
     Zoom
@@ -24,6 +29,25 @@ export default {
         item.isChecked = 0;
       });
       saleAttrValue.isChecked = 1;
+    },
+    changeSkuNum(event) {
+      let value = event.target.value * 1;
+      if (isNaN(value) || value < 1) {
+        this.skuNum = 1;
+      } else {
+        this.skuNum = parseInt(value);
+      }
+    },
+    async addShopcar() {
+
+      try {
+        await this.$store.dispatch("addOrUpdateShopCart", {skuId: this.$route.params.skuid, skuNum: this.skuNum});
+        this.$router.push({name: "addcartsuccess"});
+        console.log(111)
+      } catch (error) {
+
+      }
+
     }
   }
 }
@@ -105,12 +129,12 @@ export default {
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt">
-                <a class="plus" href="javascript:">+</a>
-                <a class="mins" href="javascript:">-</a>
+                <input v-model="skuNum" autocomplete="off" class="itxt" @change="changeSkuNum">
+                <a class="plus" href="javascript:" @click="skuNum++">+</a>
+                <a class="mins" href="javascript:" @click="skuNum>1?skuNum-- : skuNum=1">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a @click="addShopcar">加入购物车</a>
               </div>
             </div>
           </div>
