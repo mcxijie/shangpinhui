@@ -42,8 +42,8 @@ export default {
 
       try {
         await this.$store.dispatch("addOrUpdateShopCart", {skuId: this.$route.params.skuid, skuNum: this.skuNum});
-        this.$router.push({name: "addcartsuccess"});
-        console.log(111)
+        sessionStorage.setItem("SKUINFO", JSON.stringify(this.skuInfo));
+        this.$router.push({name: "addcartsuccess", query: {skuNum: this.skuNum}});
       } catch (error) {
 
       }

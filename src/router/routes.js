@@ -4,9 +4,17 @@ import Search from "@/views/Search/index.vue";
 import Login from "@/views/Login/index.vue";
 import Register from "@/views/Register/index.vue";
 import AddCartSuccess from "@/views/AddCartSuccess/index.vue";
+import ShopCart from "@/views/ShopCart/index.vue";
 
 
 export default [
+    {
+        path: "/shopcart",
+        component: ShopCart,
+        meta: {
+            show: true
+        }
+    },
     {
         path: "/addcartsuccess",
         name: "addcartsuccess",
