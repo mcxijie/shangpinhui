@@ -50,6 +50,23 @@ export default {
       } catch (error) {
         alert(error.message);
       }
+    },
+    async deleteAllCheckedCart() {
+      try {
+        await this.$store.dispatch("deleteAllCheckedCart");
+        this.getData();
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+    async updateAllCartChecked(event) {
+      let isChecked = event.target.checked ? "1" : "0";
+      try {
+        await this.$store.dispatch("updateAllCartChecked", isChecked);
+        this.getData();
+      } catch (error) {
+        // alert(error.message);
+      }
     }
   },
   computed: {
@@ -115,11 +132,12 @@ export default {
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input :checked="isAllCheck" class="chooseAll" type="checkbox">
+        <input :checked="isAllCheck && cartInfoList.length > 0 " class="chooseAll" type="checkbox"
+               @change="updateAllCartChecked">
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a @click="deleteAllCheckedCart">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
