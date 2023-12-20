@@ -13,6 +13,14 @@ export default {
         loction.query = this.$route.query;
         this.$router.push(loction);
       }
+    },
+    async logout() {
+      try {
+        await this.$store.dispatch("userLogout");
+        this.$router.push("/home");
+      } catch (error) {
+
+      }
     }
   },
   mounted() {
@@ -42,7 +50,7 @@ export default {
           </p>
           <p v-else>
             <a>{{ userName }}</a>
-            <a class="register">退出登录</a>
+            <a class="register" @click="logout">退出登录</a>
           </p>
         </div>
         <div class="typeList">
