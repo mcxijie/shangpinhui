@@ -6,9 +6,17 @@ import Register from "@/views/Register/index.vue";
 import AddCartSuccess from "@/views/AddCartSuccess/index.vue";
 import ShopCart from "@/views/ShopCart/index.vue";
 import Trade from "@/views/Trade/index.vue";
+import Pay from "@/views/Pay/index.vue";
 
 
 export default [
+    {
+        path: "/pay",
+        component: Pay,
+        meta: {
+            show: true
+        }
+    },
     {
         path: "/trade",
         component: Trade,
