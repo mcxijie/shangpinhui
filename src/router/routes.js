@@ -7,9 +7,41 @@ import AddCartSuccess from "@/views/AddCartSuccess/index.vue";
 import ShopCart from "@/views/ShopCart/index.vue";
 import Trade from "@/views/Trade/index.vue";
 import Pay from "@/views/Pay/index.vue";
+import PaySuccess from "@/views/PaySuccess/index.vue";
+import Center from "@/views/Center/index.vue";
+import MyOrder from "@/views/Center/myOrder";
+import GroupOrder from "@/views/Center/groupOrder";
 
 
 export default [
+    {
+        path: "/center",
+        component: Center,
+        meta: {
+            show: true
+        },
+        children: [
+            {
+                path: "myorder",
+                component: MyOrder,
+            },
+            {
+                path: "grouporder",
+                component: GroupOrder,
+            },
+            {
+                path: "/center",
+                redirect: "/center/myorder"
+            }
+        ]
+    },
+    {
+        path: "/paysuccess",
+        component: PaySuccess,
+        meta: {
+            show: true
+        }
+    },
     {
         path: "/pay",
         component: Pay,
