@@ -9,6 +9,8 @@ import Carousel from "@/components/Carousel";
 import Pagination from "@/components/Pagination";
 import * as API from '@/api';
 import {Button, MessageBox} from "element-ui";
+import VueLazyload from "vue-lazyload";
+import guidao from '@/assets/guidao.jpg';
 
 Vue.config.productionTip = false
 Vue.component(TypeNav.name, TypeNav);
@@ -17,7 +19,9 @@ Vue.component(Pagination.name, Pagination);
 Vue.use(Button.name, Button);
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
-
+Vue.use(VueLazyload, {
+    loading: guidao
+});
 
 
 new Vue({
