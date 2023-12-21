@@ -49,30 +49,59 @@ export default {
       </h3>
       <div class="content">
         <label>手机号:</label>
-        <input v-model="phone" placeholder="请输入你的手机号" type="text">
-        <span class="error-msg">错误提示信息</span>
+        <input
+            v-model="phone"
+            v-validate="{ required: true, regex: /^1\d{10}$/ }"
+            :class="{ invalid: errors.has('phone') }"
+            name="phone"
+            placeholder="请输入你的手机号"
+        />
+        <span class="error-msg">{{ errors.first("phone") }}</span>
       </div>
       <div class="content">
         <label>验证码:</label>
-        <input v-model="code" placeholder="请输入验证码" type="text">
-        <!--        <img ref="code" src="http://182.92.128.115/api/user/passport/code" alt="code">-->
+        <input
+            v-model="code"
+            v-validate="{ required: true, regex: /^\d{6}$/ }"
+            :class="{ invalid: errors.has('code') }"
+            name="code"
+            placeholder="请你输入验证码"
+        />
         <button style="width: 100px;height: 40px" @click="getCode">获取验证码</button>
-        <span class="error-msg">错误提示信息</span>
+        <span class="error-msg">{{ errors.first("code") }}</span>
       </div>
       <div class="content">
         <label>登录密码:</label>
-        <input v-model="password" placeholder="请输入你的登录密码" type="password">
-        <span class="error-msg">错误提示信息</span>
+        <input
+            v-model="password"
+            v-validate="{ required: true, regex: /^[0-9A-Za-z]{8,20}$/ }"
+            :class="{ invalid: errors.has('password') }"
+            name="password"
+            placeholder="请输入密码"
+        />
+        <span class="error-msg">{{ errors.first("password") }}</span>
       </div>
       <div class="content">
         <label>确认密码:</label>
-        <input v-model="password1" placeholder="请输入确认密码" type="password">
-        <span class="error-msg">错误提示信息</span>
+        <input
+            v-model="password1"
+            v-validate="{ required: true, is:password }"
+            :class="{ invalid: errors.has('password1') }"
+            name="password1"
+            placeholder="请输入确认密码"
+        />
+        <span class="error-msg">{{ errors.first("password1") }}</span>
       </div>
       <div class="controls">
-        <input :checked="agree" name="m1" type="checkbox">
+        <input
+            v-model="agree"
+            v-validate="{ required: true, 'agree':true }"
+            :class="{ invalid: errors.has('agree') }"
+            name="agree"
+            type="checkbox"
+        />
         <span>同意协议并注册《尚品汇用户协议》</span>
-        <span class="error-msg">错误提示信息</span>
+        <span class="error-msg">{{ errors.first("agree") }}</span>
       </div>
       <div class="btn" @click="userRegister">
         <button>完成注册</button>

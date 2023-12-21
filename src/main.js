@@ -11,6 +11,7 @@ import * as API from '@/api';
 import {Button, MessageBox} from "element-ui";
 import VueLazyload from "vue-lazyload";
 import guidao from '@/assets/guidao.jpg';
+import "@/plugins/validate";
 
 Vue.config.productionTip = false
 Vue.component(TypeNav.name, TypeNav);
